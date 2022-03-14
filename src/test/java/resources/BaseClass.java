@@ -6,11 +6,14 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
@@ -79,6 +82,18 @@ public class BaseClass
 		//jse.executeScript("document.body.style.zoom='80%';");
 	}
 
+	public String takeScreenshotHere(String testName, WebDriver driver) {
+		File srcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		String destFilePath = System.getProperty("user.dir")+"\\Screenshots\\"+testName+".png";
+		try {
+			FileHandler.copy(srcFile,new File(destFilePath));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return destFilePath;	
+	}
+	
 	@AfterMethod
 	public void tearDown()
 	{

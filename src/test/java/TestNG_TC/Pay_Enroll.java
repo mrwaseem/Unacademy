@@ -1,8 +1,11 @@
 package TestNG_TC;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import PageObjects.HomePage;
 import PageObjects.LandingPage;
@@ -14,7 +17,7 @@ import resources.BaseClass;
 public class Pay_Enroll extends BaseClass
 {
 	@Test
-	public void Enroll_With_ValidCard_And_InvalidCVV() throws InterruptedException
+	public void TestCase1() throws InterruptedException
 	{
 		landingPage = new LandingPage(driver);
 		loginPage=new LoginPage(driver);
@@ -25,13 +28,10 @@ public class Pay_Enroll extends BaseClass
 		landingPage.clickOnLoginButton();
 		loginPage.setMobileNumber(prop.getProperty("MobNo"));
 		loginPage.clickOnLoginButton();
-		Assert.assertTrue(loginPage.loginText());
 		Thread.sleep(20000);
 		loginPage.clickOnVerifyOtpButton();
 		Waiting(homePage.okGotItButton, 15);
 		homePage.clickOnGotItButton();
-		Assert.assertTrue(homePage.ProfileIcon());
-		Assert.assertTrue(homePage.isGetSubscriptionButtonEnabled());
 		homePage.clickOnGetSubscriptionButton();
 		Assert.assertTrue(subscribePage.isPlusButtonEnabled());
 		Assert.assertTrue(subscribePage.isIconicButtonEnabled());
@@ -63,5 +63,182 @@ public class Pay_Enroll extends BaseClass
 		paymentPage.clickOnCash();
 		paymentPage.clickOnLoan();
 		paymentPage.clickOnPayInParts();
+	}
+	
+	@Test
+	public void TestCase2() throws InterruptedException
+	{ 
+		landingPage = new LandingPage(driver);
+		loginPage=new LoginPage(driver);
+		homePage=new HomePage(driver);
+		paymentPage=new PaymentPage(driver);
+		subscribePage=new SubscribePage(driver);
+		landingPage.clickOnAcceptCookiesButton();
+		landingPage.clickOnLoginButton();
+		loginPage.setMobileNumber(prop.getProperty("MobNo"));
+		loginPage.clickOnLoginButton();
+		Thread.sleep(20000);
+		loginPage.clickOnVerifyOtpButton();
+		Waiting(homePage.okGotItButton, 15);
+		homePage.clickOnGotItButton();
+		homePage.clickOnGetSubscriptionButton();
+		subscribePage.clickOnSelectPlusButton();
+		jse=(JavascriptExecutor)driver;
+		jse.executeScript("window.scrollBy(0,500)");
+		subscribePage.select12MonthsRadioButton();
+		subscribePage.clickOnProceedToPayButton();
+		paymentPage.clickOnCard();
+		WebElement cardNumberframe = driver.findElement(By.className("card_number_iframe"));
+		driver.switchTo().frame(cardNumberframe);
+		paymentPage.setCardNumber(prop.getProperty("Valid_CardNumber"));
+		driver.switchTo().defaultContent();
+		WebElement cardExpMonthframe = driver.findElement(By.className("card_exp_month_iframe"));
+		driver.switchTo().frame(cardExpMonthframe);	   
+		paymentPage.setExpireMonth(prop.getProperty("Valid_mm"));
+		driver.switchTo().defaultContent();
+		WebElement cardExpYearframe = driver.findElement(By.className("card_exp_year_iframe"));
+		driver.switchTo().frame(cardExpYearframe);	
+		paymentPage.setExpireYear(prop.getProperty("Valid_yy"));
+		driver.switchTo().defaultContent();
+		WebElement cardSecutiryCodeframe = driver.findElement(By.className("security_code_iframe"));
+		driver.switchTo().frame(cardSecutiryCodeframe);
+		paymentPage.setSecurityCode(prop.getProperty("Invalid_Cvv"));
+		driver.switchTo().defaultContent();
+		WebElement nameOnCardframe = driver.findElement(By.className("name_on_card_iframe"));
+		driver.switchTo().frame(nameOnCardframe);
+		paymentPage.setNameOnCard(prop.getProperty("nameOnCard"));
+		driver.switchTo().defaultContent();
+		Waiting(paymentPage.payButton, 10);
+		paymentPage.clickOnPayButton();
+		Waiting(paymentPage.AuthTransaction, 20);
+		softAssert=new SoftAssert();
+		softAssert.assertEquals(paymentPage.AuthTransaction(), "Authenticate Transaction");
+	}
+	
+	@Test
+	public void TestCase3() throws InterruptedException
+	{
+		landingPage = new LandingPage(driver);
+		loginPage=new LoginPage(driver);
+		homePage=new HomePage(driver);
+		paymentPage=new PaymentPage(driver);
+		subscribePage=new SubscribePage(driver);
+		landingPage.clickOnAcceptCookiesButton();
+		landingPage.clickOnLoginButton();
+		loginPage.setMobileNumber(prop.getProperty("MobNo"));
+		loginPage.clickOnLoginButton();
+		Thread.sleep(20000);
+		loginPage.clickOnVerifyOtpButton();
+		Waiting(homePage.okGotItButton, 15);
+		homePage.clickOnGotItButton();
+		homePage.clickOnGetSubscriptionButton();
+		subscribePage.clickOnSelectPlusButton();
+		jse=(JavascriptExecutor)driver;
+		jse.executeScript("window.scrollBy(0,500)");
+		subscribePage.select12MonthsRadioButton();
+		subscribePage.clickOnProceedToPayButton();
+		paymentPage.clickOnCard();
+		WebElement cardNumberframe = driver.findElement(By.className("card_number_iframe"));
+		driver.switchTo().frame(cardNumberframe);
+		paymentPage.setCardNumber(prop.getProperty("Invalid_CardNumber"));
+		driver.switchTo().defaultContent();
+		WebElement cardExpMonthframe = driver.findElement(By.className("card_exp_month_iframe"));
+		driver.switchTo().frame(cardExpMonthframe);	   
+		paymentPage.setExpireMonth(prop.getProperty("Valid_mm"));
+		driver.switchTo().defaultContent();
+		WebElement cardExpYearframe = driver.findElement(By.className("card_exp_year_iframe"));
+		driver.switchTo().frame(cardExpYearframe);	
+		paymentPage.setExpireYear(prop.getProperty("Valid_yy"));
+		driver.switchTo().defaultContent();
+		WebElement cardSecutiryCodeframe = driver.findElement(By.className("security_code_iframe"));
+		driver.switchTo().frame(cardSecutiryCodeframe);
+		paymentPage.setSecurityCode(prop.getProperty("Valid_Cvv"));
+		driver.switchTo().defaultContent();
+		WebElement nameOnCardframe = driver.findElement(By.className("name_on_card_iframe"));
+		driver.switchTo().frame(nameOnCardframe);
+		paymentPage.setNameOnCard(prop.getProperty("nameOnCard"));
+		driver.switchTo().defaultContent();
+		softAssert=new SoftAssert();
+		softAssert.assertTrue(paymentPage.payButton.isEnabled());
+	}
+	
+	@Test
+	public void TestCase4() throws InterruptedException
+	{
+		landingPage = new LandingPage(driver);
+		loginPage=new LoginPage(driver);
+		homePage=new HomePage(driver);
+		paymentPage=new PaymentPage(driver);
+		subscribePage=new SubscribePage(driver);
+		landingPage.clickOnAcceptCookiesButton();
+		landingPage.clickOnLoginButton();
+		loginPage.setMobileNumber(prop.getProperty("MobNo"));
+		loginPage.clickOnLoginButton();
+		Thread.sleep(20000);
+		loginPage.clickOnVerifyOtpButton();
+		Waiting(homePage.okGotItButton, 15);
+		homePage.clickOnGotItButton();
+		homePage.clickOnGetSubscriptionButton();
+		subscribePage.clickOnSelectPlusButton();
+		jse=(JavascriptExecutor)driver;
+		jse.executeScript("window.scrollBy(0,500)");
+		subscribePage.select12MonthsRadioButton();
+		subscribePage.clickOnProceedToPayButton();
+		Assert.assertEquals(paymentPage.PaymentMethod(), "Choose a payment method");
+		paymentPage.clickOnCard();
+		WebElement cardNumberframe = driver.findElement(By.className("card_number_iframe"));
+		driver.switchTo().frame(cardNumberframe);
+		paymentPage.setCardNumber(prop.getProperty("Valid_CardNumber"));
+		driver.switchTo().defaultContent();
+		WebElement cardExpMonthframe = driver.findElement(By.className("card_exp_month_iframe"));
+		driver.switchTo().frame(cardExpMonthframe);	   
+		paymentPage.setExpireMonth(prop.getProperty("Invalid_mm"));
+		driver.switchTo().defaultContent();
+		WebElement cardExpYearframe = driver.findElement(By.className("card_exp_year_iframe"));
+		driver.switchTo().frame(cardExpYearframe);	
+		paymentPage.setExpireYear(prop.getProperty("Invalid_yy"));
+		driver.switchTo().defaultContent();
+		WebElement cardSecutiryCodeframe = driver.findElement(By.className("security_code_iframe"));
+		driver.switchTo().frame(cardSecutiryCodeframe);
+		paymentPage.setSecurityCode(prop.getProperty("Valid_Cvv"));
+		driver.switchTo().defaultContent();
+		WebElement nameOnCardframe = driver.findElement(By.className("name_on_card_iframe"));
+		driver.switchTo().frame(nameOnCardframe);
+		paymentPage.setNameOnCard(prop.getProperty("nameOnCard"));
+		driver.switchTo().defaultContent();	
+		Waiting(paymentPage.payButton, 10);
+		paymentPage.clickOnPayButton();
+		Waiting(paymentPage.transactionDeclineMessage, 10);
+		Assert.assertTrue(paymentPage.TransactionDeclineMessage().contains(prop.getProperty("message")));
+	}
+	
+	@Test
+	public void TestCase5() throws InterruptedException
+	{
+		landingPage = new LandingPage(driver);
+		loginPage=new LoginPage(driver);
+		homePage=new HomePage(driver);
+		paymentPage=new PaymentPage(driver);
+		subscribePage=new SubscribePage(driver);
+		landingPage.clickOnAcceptCookiesButton();
+		landingPage.clickOnLoginButton();
+		loginPage.setMobileNumber(prop.getProperty("MobNo"));
+		loginPage.clickOnLoginButton();
+		Thread.sleep(20000);
+		loginPage.clickOnVerifyOtpButton();
+		Waiting(homePage.okGotItButton, 15);
+		homePage.clickOnGotItButton();
+		homePage.clickOnGetSubscriptionButton();
+		subscribePage.clickOnSelectPlusButton();
+		jse=(JavascriptExecutor)driver;
+		jse.executeScript("window.scrollBy(0,500)");
+		subscribePage.select12MonthsRadioButton();
+		subscribePage.clickOnProceedToPayButton();
+		paymentPage.clickOnNetBanking();
+		paymentPage.clickOnSelectBankDropDown();
+		paymentPage.clickOnCanaraBank();
+		paymentPage.clickOnPayButton();
+		softAssert=new SoftAssert();
+		softAssert.assertTrue(driver.getTitle().contains("netbanking"));
 	}
 }
