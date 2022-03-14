@@ -1,0 +1,153 @@
+@Then("I click on Switch Goal and click on Programming for Students")
+	public void i_click_on_switch_goal_and_click_on_programming_for_students() {
+		homePage=new HomePage(driver);
+		Waiting(homePage.switchGoalButton, 15);
+		homePage.clickOnSwitchGoalButton();
+		Waiting(homePage.selectGoal, 15);
+		homePage.SelectGoal();
+	}
+
+	@Then("Programming for Stud ... Course should be selected")
+	public void programming_for_stud_course_should_be_selected() {
+		homePage=new HomePage(driver);
+		Assert.assertEquals(homePage.programmingForStud(), "Programming for Stud ...");
+	}
+
+@Waseem @PayAndEnroll @OkState
+Scenario Outline: [UN-005] Pay in Parts.
+When I Enter "<Mobile Number>" and click on Login button
+Then Login Page should be display
+And I Enter valid OTP and click on Verify OTP button
+Then I Navigated to Home Page
+#And I click on Switch Goal and click on Programming for Students
+#Then Programming for Stud ... Course should be selected
+And I click on Get subscription button and click on select Plus button
+And I select "12 months" radio button and click on Proceed to pay button
+Then I Navigated to Payment method page
+And I choose a payment method as Pay in Parts and I click on Continue button
+And I Select Pay in "3 Parts" and click on next button
+And I Select UPI payment 
+And I enter Invalid UPI "<UPI>" and click on Pay
+Then I Verify "Transaction declined" message is displayed
+
+@Waseem @PayAndEnroll
+Scenario Outline: Pay in Parts
+When I Enter "<Mobile Number>" and click on Login button
+Then Login Page should be display
+And I Enter valid OTP and click on Verify OTP button
+Then I Navigated to Home Page
+And I click on Switch Goal and click on Programming for Students
+Then Programming for Stud ... Course should be selected
+And I click on Get subscription button and click on select Plus button
+And I select "12 months" radio button and click on Proceed to pay button
+Then I Navigated to Payment method page
+And I choose a payment method as Pay in Parts and I click on Continue button
+Then I Choose "5 Parts" and click on next button
+And I Enter valid Card number "<Card number>" MM "<MM>" YY "<YY>" CVV "<CVV>" Name on Card "<Name On Card>" and click on Pay button
+Then I Verify "Transaction declined" message is displayed
+
+Examples: 
+|Mobile Number	| Card number					 |	MM	|		YY	|		CVV	|		Name On Card	|
+|8496817175			| 4389 7601 5062 4198	 |	01	|		28	|		794	|		Syed Waseem		|
+
+
+Feature: Register Functionality
+Background:
+Given user should navigate to login pageScenario: To validate user can register
+When User click on crete your account
+And enter valid mobile number and click on continue button
+And select Age group and click on continue button
+And user enter valid OTp
+And user enter valid name
+And user enter valid email
+And select state of residence
+And select Privacy Policy option
+And click on submit button
+Then User Account should get created successfully
+
+Scenario: To validate user can registerWhen User click on crete your account
+And enter valid mobile number and click on continue button
+And select below 18 Age group and click on continue button
+And user enter valid name
+And user enter valid email
+And select state of residence
+And select Privacy Policy option
+And click on submit button
+Then User Account should get created successfully
+Scenario: user should not be able to register with invalid email
+When User click on crete your account
+And enter valid mobile number and click on continue button
+And select Age group and click on continue button
+And enter valid OTP
+And user enter valid name
+And user enter invalid email
+And select state of residence
+And select Privacy Policy option
+And click on submit button
+Then error message should be displayed
+Scenario: user should not be able to register with invalid OTP
+When User click on crete your account
+And enter valid mobile number and click on continue button
+And enter valid mobile number and click on continue button
+And user enter invalid OTP
+And user enter valid name
+And user enter valid email
+And select state of residence
+And select Privacy Policy option
+And click on submit button
+Then error message should be displayed
+Scenario: user should not be able to register without selecting privacy policy
+When User click on crete your account
+And enter valid mobile number and click on continue button
+And select Age group and click on continue button
+And user enter valid name
+And user enter valid email
+And select state of residence
+And click on submit button
+Then error message should be displayed
+Scenario: To validate user should not be able to register a duplicate account with an existing mobile number
+When User click on crete your account
+And enter valid mobile number and click on continue button
+And enter valid OTP
+And click on submit button
+Then new user account should not be created instead display already existed user profile page
+
+
+
+
+Feature: Payment and Enroll
+Scenario: User should not be able to enroll to course if user enter valid card details but does not have sufficient amount.
+Given User navigate to login page
+When user enter valid mobile number and click on login button
+And enter valid six digit OTP and click on Verify OTP button
+And click on Switch Goal and click on Programming for Students
+And click on Get subscription button
+And select twelve months radio button and click on proceed to pay button
+
+And User should choose a payment method as Card
+And enter valid card details and click on Pay button
+And enter valid six digits OTP and click on Submit button
+Then user should not be enroll to the course
+
+
+
+
+
+@karthik
+Scenario: User should be able to manage courses in My goals drop down
+Given user must be navigated to login page
+When user should enter valid mobile number and click on login
+And User should enter the valid OTP and click on Verify button 
+And user must click on My goals drop down
+When user clicks on the course the manage button must be available
+Then User can manage the course
+
+Scenario: User should be able to edit the courses in My goals drop down
+Given user must be navigated to login page
+When user should enter valid mobile number and click on login
+And User should enter the valid OTP and click on Verify button 
+And user must click on My goals drop down
+And user must click on the edit button
+And User must click on the remove button 
+And user must click on the remove button on the alert
+Then the course must be removed
