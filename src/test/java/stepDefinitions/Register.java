@@ -13,6 +13,7 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import resources.BaseClass;
 
 public class Register extends BaseClass
 {
@@ -95,5 +96,16 @@ public class Register extends BaseClass
 	public void i_verify_email_is_not_valid_message_is_displayed() {
 		registerPage=new RegisterPage(driver);
 		Assert.assertEquals(registerPage.EmailInvalidMessage(), "Email is not valid");
+	}
+	@When("I Enter Valid OTP and click on submit button")
+	public void i_enter_valid_otp_and_click_on_submit_button() throws InterruptedException {
+		Thread.sleep(20000);
+		registerPage=new RegisterPage(driver);
+		registerPage.clickOnSubmitButton();
+	  }
+	@Then("I Navigate to Home page")
+	public void i_navigate_to_home_page() {
+	   homePage=new HomePage(driver);
+	   Assert.assertTrue(homePage.ProfileIcon());
 	}
 }*/

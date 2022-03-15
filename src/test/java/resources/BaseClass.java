@@ -39,6 +39,7 @@ public class BaseClass
 	public HomePage homePage=null;	
 	public SubscribePage subscribePage=null;
 	public PaymentPage paymentPage=null;
+	public RegisterPage registerPage=null;
 	public SoftAssert softAssert=null;
 	
 	public void Waiting(WebElement element, long timeOutInSeconds)

@@ -33,5 +33,17 @@ Examples:
 |Mobile Number	|	OTP				|	Name			|	Email								|
 |9060408988			|	879027		|	Lavanya		|	lavanya							|
 
+@Lavanya @Register
+Scenario Outline: To validate existing user try to create account it should be redirected to homepage
+When I Click on crete your account
+And I Enter valid "<Mobile Number>" and click on continue button
+And I Enter Valid OTP and click on submit button
+Then I Navigate to Home page
+
+Examples:
+|Mobile Number	|
+|8496817175			|
+
+
 
 
