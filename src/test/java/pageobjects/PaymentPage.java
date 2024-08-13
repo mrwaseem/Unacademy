@@ -28,41 +28,41 @@ public class PaymentPage {
 		return paymentMethod.getText();
 	}
 	
-	@FindBy(xpath = "//div[@data-id='PAY_IN_PARTS']")
+	@FindBy(xpath = "//p[.='Pay in parts']")
 	private WebElement selectPayInParts;
 	public void clickOnPayInParts()
 	{
 		selectPayInParts.click();
 	}
-	@FindBy(xpath = "//p[text()='Card']")
-	private WebElement selectCard;
+	@FindBy(xpath = "//p[.='Debit / Credit Card']")
+	public WebElement selectCard;
 	public void clickOnCard()
 	{
 		selectCard.click();
 	}
 	
-	@FindBy(xpath = "//div[@data-id='UPI']")
+	@FindBy(xpath = "//p[.='UPI']")
 	private WebElement selectUPI;
 	public void clickOnUPI()
 	{
 		selectUPI.click();
 	}
 	
-	@FindBy(xpath = "//div[@data-id='EMI']")
+	@FindBy(xpath = "//p[.='EMI']")
 	private WebElement selectEMI;
 	public void clickOnEMI()
 	{
 		selectEMI.click();
 	}
 	
-	@FindBy(xpath = "//div[@data-id='CASH']")
+	@FindBy(xpath = "//p[.='Pay in cash']")
 	private WebElement selectCash;
 	public void clickOnCash()
 	{
 		selectCash.click();
 	}
 	
-	@FindBy(xpath = "//div[@data-id='LOAN']")
+	@FindBy(xpath = "//p[.='Loans']")
 	private WebElement selectLoan;
 	public void clickOnLoan()
 	{
@@ -126,11 +126,29 @@ public class PaymentPage {
 		nameOnCardField.sendKeys(name);
 	}
 	
-	@FindBy(xpath = "//button[@aria-label='Pay']")
+	@FindBy(xpath = "//button[.='Pay']")
 	public WebElement payButton;
 	public void clickOnPayButton()
 	{
 		payButton.click();
+	}
+	
+	@FindBy(name = "otpValue")
+	public WebElement OtpValueTextField;
+	public boolean isOtpValueTextFieldDisplayed() {
+		return OtpValueTextField.isDisplayed();
+	}
+	
+	@FindBy(xpath = "//input[@placeholder='Enter OTP']")
+	public WebElement EnterOTPTextField;
+	public boolean isEnterOTPTextFieldDisplayed() {
+		return EnterOTPTextField.isDisplayed();
+	}
+	
+	@FindBy(xpath = "//strong[.='An OTP (One Time Password) has been sent to the registered mobile number']")
+	public WebElement OTPSentToRMN;
+	public String oTPSentToRMNMessage() {
+		return OTPSentToRMN.getText();
 	}
 	
 	@FindBy(xpath = "//h1[text()='Authenticate Transaction']")
@@ -147,7 +165,7 @@ public class PaymentPage {
 		return transactionDeclineMessage.getText();
 	}
 	
-	@FindBy(xpath = "//div[@data-id='NET_BANKING']")
+	@FindBy(xpath = "//p[.='Netbanking']")
 	private WebElement netBanking;
 	public void clickOnNetBanking()
 	{

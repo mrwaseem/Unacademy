@@ -11,7 +11,9 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -32,6 +34,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class BaseClass 
 {
 	public WebDriver driver=null;
+	ChromeOptions chromeOptions=null;
 	public Properties prop=null;
 	public JavascriptExecutor jse=null;
 	public LandingPage landingPage=null;
@@ -44,7 +47,7 @@ public class BaseClass
 	
 	public void Waiting(WebElement element, long timeOutInSeconds)
 	{
-		WebDriverWait wait= new WebDriverWait(driver, timeOutInSeconds);
+		WebDriverWait wait= new WebDriverWait(driver, Duration.ofSeconds(timeOutInSeconds));
 		wait.until(ExpectedConditions.visibilityOf(element));
 	}
 	
@@ -62,13 +65,17 @@ public class BaseClass
 	public void initializeBrowser(String browserName) {
 		if(browserName.equalsIgnoreCase("chrome")) {
 			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
+			ChromeOptions chromeOptions = new ChromeOptions();
+			chromeOptions.addArguments("--disable-geolocation");
+			driver = new ChromeDriver(chromeOptions);
 		}else if(browserName.equalsIgnoreCase("firefox")) {
 			WebDriverManager.firefoxdriver().setup();
 			driver = new FirefoxDriver();
 		}else if(browserName.equalsIgnoreCase("edge")) {
 			WebDriverManager.edgedriver().setup();
-			driver = new EdgeDriver();
+			EdgeOptions edgeOptions = new EdgeOptions();
+			edgeOptions.addArguments("--disable-notifications");
+			driver = new EdgeDriver(edgeOptions);
 		}
 	}
 	@BeforeMethod

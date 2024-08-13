@@ -20,7 +20,7 @@ public class LandingPage
 		acceptCookiesButton.click();
 	}
 	
-	@FindBy(xpath = "(//button[@type='button'])[1]")
+	@FindBy(xpath = "(//button[@type='button'])[2]")
 	private WebElement loginButton;
 	
 	public void clickOnLoginButton()

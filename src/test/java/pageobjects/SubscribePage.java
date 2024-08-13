@@ -14,57 +14,57 @@ public class SubscribePage
 		PageFactory.initElements(driver, this);
 	}
 
-	@FindBy(xpath = "//button[text()='Select PLUS']")
-	private WebElement selectPlusButton;
-	public void clickOnSelectPlusButton()
+	@FindBy(xpath = "(//span[text()='Get Plus'])[2]")
+	private WebElement getPlusButton;
+	public void clickOnGetPlusButton()
 	{
-		selectPlusButton.click();
+		getPlusButton.click();
 	}
-	public boolean isPlusButtonEnabled()
+	public boolean isGetPlusButtonEnabled()
 	{
-		return selectPlusButton.isEnabled();
-	}
-
-	@FindBy(xpath = "//button[@aria-label='Select ICONIC']")
-	private WebElement selectIconicButton;
-	public boolean isIconicButtonEnabled()
-	{
-		return selectIconicButton.isEnabled();
+		return getPlusButton.isEnabled();
 	}
 
-	@FindBy(xpath = "//h4[@data-id='24 months']")
+	@FindBy(xpath = "(//span[.='Get Iconic'])[2]")
+	private WebElement getIconicButton;
+	public boolean isGetIconicButtonEnabled()
+	{
+		return getIconicButton.isEnabled();
+	}
+
+	@FindBy(xpath = "(//div[contains(@class, 'css-1l26j99-ContentWrap')])[1]")
 	private WebElement select24MonthsRadioButton;
 	public void select24MonthsRadioButton() 
 	{
 		select24MonthsRadioButton.click();
 	}
-	
-	@FindBy(xpath = "//h4[@data-id='18 months']")
-	private WebElement select18MonthsRadioButton;
-	public void select18MonthsRadioButton()
-	{
-		select18MonthsRadioButton.click();
-	}
-	
-	@FindBy(xpath = "//h4[@data-id='12 months']")
+		
+	@FindBy(xpath = "(//div[contains(@class, 'css-1l26j99-ContentWrap')])[2]")
 	private WebElement select12MonthsRadioButton;
 	public void select12MonthsRadioButton()
 	{
 		select12MonthsRadioButton.click();
 	}
 	
-	@FindBy(xpath = "//button[@aria-label='View all plans']")
+	@FindBy(xpath = "(//div[contains(@class, 'css-1l26j99-ContentWrap')])[3]")
+	private WebElement select9MonthsRadioButton;
+	public void select9MonthsRadioButton()
+	{
+		select9MonthsRadioButton.click();
+	}
+	
+	@FindBy(xpath = "//span[.='View all plans']")
 	public WebElement viewAllPlansButton;
 	public boolean isViewAllPlansButtonEnabled()
 	{
 		return viewAllPlansButton.isEnabled();
 	}
-	public void clickOnviewAllPlansButton()
+	public void clickOnViewAllPlansButton()
 	{
 		viewAllPlansButton.click();
 	}
 	
-	@FindBy(xpath = "//h4[@data-id='6 months']")
+	@FindBy(xpath = "(//div[contains(@class, 'css-1l26j99-ContentWrap')])[4]")
 	public WebElement select6MonthsRadioButton;
 	public void select6MonthsRadioButton()
 	{
@@ -96,7 +96,7 @@ public class SubscribePage
 		plusButton.click();
 	}
 	
-	@FindBy(xpath = "//button[text()='Proceed to pay']")
+	@FindBy(xpath = "//span[text()='Proceed to pay']")
 	public WebElement proceedToPayButton;
 	public void clickOnProceedToPayButton()
 	{

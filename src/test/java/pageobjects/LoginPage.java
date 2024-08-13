@@ -12,7 +12,7 @@ public class LoginPage
 		PageFactory.initElements(driver, this);
 	}
 	
-	@FindBy(xpath = "//input[@type='tel']")
+	@FindBy(xpath = "(//input[@type='tel'])[2]")
 	private WebElement mobileNumberField;
 	
 	public void setMobileNumber(String number)
@@ -20,7 +20,7 @@ public class LoginPage
 		mobileNumberField.sendKeys(number);
 	}
 	
-	@FindBy(xpath = "(//button[@type='button'])[5]")
+	@FindBy(xpath = "//button[.='Login']")
 	private WebElement loginButton;
 	
 	public void clickOnLoginButton()
@@ -48,7 +48,6 @@ public class LoginPage
 	
 	public String ErrorMessage() {
 		return errorMessage.getText();
-		
 	}
 	
 	@FindBy(xpath = "//input[@type='tel']")

@@ -77,38 +77,38 @@ public class Pay_Enroll extends BaseClass
 	@Then("I Verify Get subscription button is enabled")
 	public void i_verify_get_subscription_button_is_enabled() {
 		homePage=new HomePage(driver);
-		Assert.assertTrue(homePage.isGetSubscriptionButtonEnabled());
+		Assert.assertTrue(homePage.isViewSubscriptionPlansButtonEnabled());
 	}
 
 	@Then("I click on Get subscription button")
 	public void i_click_on_get_subscription_button() {
 		homePage=new HomePage(driver);
-		homePage.clickOnGetSubscriptionButton();
+		homePage.isViewSubscriptionPlansButtonEnabled();
 	}
 	@Then("I Verify Select Plus button and Select Iconic button is enabled")
 	public void i_verify_select_plus_button_and_select_iconic_button_is_enabled() {
 		subscribePage=new SubscribePage(driver);
-		Assert.assertTrue(subscribePage.isPlusButtonEnabled());
-		Assert.assertTrue(subscribePage.isIconicButtonEnabled());
+		Assert.assertTrue(subscribePage.isGetPlusButtonEnabled());
+		Assert.assertTrue(subscribePage.isGetIconicButtonEnabled());
 	}
 
 	@Then("I click on Select Plus button")
 	public void i_click_on_select_plus_button() {
 		subscribePage=new SubscribePage(driver);
-		subscribePage.clickOnSelectPlusButton();
+		subscribePage.clickOnGetPlusButton();
 	}
 
 	@Then("I Verify working of all the components in the subscirbe page")
 	public void i_verify_working_of_all_the_components_in_the_subscirbe_page() {
 		subscribePage=new SubscribePage(driver);
 		subscribePage.select24MonthsRadioButton();
-		subscribePage.select18MonthsRadioButton();
-		jse=(JavascriptExecutor)driver;
-		jse.executeScript("window.scrollBy(0,500)");
 		subscribePage.select12MonthsRadioButton();
 		jse=(JavascriptExecutor)driver;
 		jse.executeScript("window.scrollBy(0,500)");
-		subscribePage.clickOnviewAllPlansButton();
+		subscribePage.select9MonthsRadioButton();
+		jse=(JavascriptExecutor)driver;
+		jse.executeScript("window.scrollBy(0,500)");
+		subscribePage.clickOnViewAllPlansButton();
 		//Waiting(subscribePage.select6MonthsRadioButton, 10);
 		subscribePage.select6MonthsRadioButton();
 		jse.executeScript("window.scrollBy(0,500)");
@@ -145,8 +145,8 @@ public class Pay_Enroll extends BaseClass
 	public void i_click_on_get_subscription_button_and_click_on_select_plus_button() {
 		homePage=new HomePage(driver);
 		subscribePage=new SubscribePage(driver);
-		homePage.clickOnGetSubscriptionButton();
-		subscribePage.clickOnSelectPlusButton();
+		homePage.clickOnViewSubscriptionPlansButton();
+		subscribePage.clickOnGetPlusButton();
 	}
 
 	@Then("I select {string} radio button and click on Proceed to pay button")

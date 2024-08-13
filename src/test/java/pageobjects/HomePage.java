@@ -57,15 +57,22 @@ public class HomePage
 	{
 		return programmingForStud.getText();
 	}
-	@FindBy(xpath = "(//button[@aria-label='Get subscription'])[1]")
-	private WebElement getSubscriptionButton;
-	public void clickOnGetSubscriptionButton()
-	{
-		getSubscriptionButton.click();
+	
+	@FindBy(xpath = "//div[@class='css-1vma8pa-CloseContainer ehhmpcf6']")
+	public WebElement prepareForGateNotification;
+	public void clickOnPrepareForGateNotification() {
+		prepareForGateNotification.click();
 	}
-	public boolean isGetSubscriptionButtonEnabled()
+	
+	@FindBy(xpath = "(//span[.='View subscription plans'])[1]")
+	private WebElement viewSubscriptionPlansButton;
+	public void clickOnViewSubscriptionPlansButton()
 	{
-		return getSubscriptionButton.isEnabled();
+		viewSubscriptionPlansButton.click();
+	}
+	public boolean isViewSubscriptionPlansButtonEnabled()
+	{
+		return viewSubscriptionPlansButton.isEnabled();
 	}
 	
 	@FindBy(xpath = "//p[text()='Add another goal']")
